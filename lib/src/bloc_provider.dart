@@ -6,10 +6,10 @@ part of building_blocs;
 /// An inherited widget is created internally to provide efficient lookup using
 /// BlocProvider.of<BlocType>(context)
 class BlocProvider<T extends BaseBloc> extends StatefulWidget {
-  final T bloc;
+  final T Function() blocBuilder;
   final Widget child;
 
-  BlocProvider({@required this.bloc, @required this.child});
+  BlocProvider({@required this.blocBuilder, @required this.child});
 
   /// Use this method to obtain a view model of a given type.
   static T of<T extends BaseBloc>(BuildContext context) {
@@ -27,7 +27,7 @@ class _BlocProviderState<T extends BaseBloc> extends State<BlocProvider> {
 
   @override
   void initState() {
-    bloc = widget.bloc;
+    bloc = widget.blocBuilder();
     super.initState();
   }
 

@@ -3,7 +3,7 @@ part of building_blocs;
 
 Type blocProviderType<T extends BaseBloc>(T mockBloc) {
   return BlocProvider(
-    bloc: mockBloc,
+    blocBuilder: () => mockBloc,
     child: Container(),
   ).runtimeType;
 }
