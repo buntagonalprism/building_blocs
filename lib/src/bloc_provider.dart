@@ -13,7 +13,7 @@ class BlocProvider<T extends BaseBloc> extends StatefulWidget {
 
   /// Use this method to obtain a view model of a given type.
   static T of<T extends BaseBloc>(BuildContext context) {
-    _BlocInherited<T> inherited = context.inheritFromWidgetOfExactType(_BlocInherited<T>().runtimeType);
+    _BlocInherited<T> inherited = context.dependOnInheritedWidgetOfExactType<_BlocInherited<T>>();
     return inherited.bloc;
   }
 
