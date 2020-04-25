@@ -42,9 +42,10 @@ void main() {
 }
 
 class MyBloc extends BaseBloc {
-  DataStreamController<String> data;
+  final data = DataStreamController<String>();
 
-  MyBloc() {
-    data = newSeededDataStream(seedValue: 'hello');
+  @override
+  void dispose() {
+    data.close();
   }
 }
