@@ -21,7 +21,7 @@ class ErrorTrace extends Equatable {
 /// A thin wrapper around a stream controller that allows a Bloc to create an data stream it
 /// may publish events on, which can be exposed publicly as a read-only DataStream for the UI
 /// to consume.
-class DataStreamController<T> extends DataStream<T> {
+class DataStreamController<T> extends DataStream<T> implements Sink<T>{
   bool _hasAdded = false;
   T _value;
   ErrorTrace _error;
@@ -47,6 +47,11 @@ class DataStreamController<T> extends DataStream<T> {
 
   @override
   void dispose() {
+    _subject.close();
+  }
+
+  @override
+  void close() {
     _subject.close();
   }
 
