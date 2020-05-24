@@ -44,10 +44,8 @@ void main() {
 class MyBloc extends BaseBloc {
   final data = DataStreamController<String>();
 
-  MyBloc() {
-  }
-
-  @override void dispose() {
+  @override
+  void dispose() {
     data.close();
   }
 }
