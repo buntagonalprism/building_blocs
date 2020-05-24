@@ -13,8 +13,12 @@ class BlocProvider<T extends BaseBloc> extends StatefulWidget {
 
   /// Use this method to obtain a view model of a given type.
   static T of<T extends BaseBloc>(BuildContext context) {
-    _BlocInherited<T> inherited = context.dependOnInheritedWidgetOfExactType<_BlocInherited<T>>();
-    return inherited.bloc;
+    if (_blocOverrides.containsKey(T)) {
+      return _blocOverrides[T];
+    } else {
+      _BlocInherited<T> inherited = context.dependOnInheritedWidgetOfExactType<_BlocInherited<T>>();
+      return inherited.bloc;
+    }
   }
 
   @override
@@ -27,7 +31,11 @@ class _BlocProviderState<T extends BaseBloc> extends State<BlocProvider> {
 
   @override
   void initState() {
-    bloc = widget.blocBuilder();
+    if (_blocOverrides.containsKey(T)) {
+      bloc = _blocOverrides[T];
+    } else {
+      bloc = widget.blocBuilder();
+    }
     super.initState();
   }
 
