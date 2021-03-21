@@ -13,7 +13,7 @@ class BlocProvider<T extends BaseBloc> extends StatefulWidget {
 
   /// Use this method to obtain a view model of a given type.
   static T of<T extends BaseBloc>(BuildContext context) {
-    _BlocInherited<T> inherited = context.inheritFromWidgetOfExactType(_BlocInherited<T>().runtimeType);
+    _BlocInherited<T> inherited = context.dependOnInheritedWidgetOfExactType<_BlocInherited<T>>();
     return inherited.bloc;
   }
 
@@ -22,7 +22,6 @@ class BlocProvider<T extends BaseBloc> extends StatefulWidget {
 }
 
 class _BlocProviderState<T extends BaseBloc> extends State<BlocProvider> {
-
   T bloc;
 
   @override
@@ -49,8 +48,7 @@ class _BlocProviderState<T extends BaseBloc> extends State<BlocProvider> {
 class _BlocInherited<T extends BaseBloc> extends InheritedWidget {
   final T bloc;
 
-  _BlocInherited({Key key, this.bloc, Widget child})
-      : super(key: key, child: child);
+  _BlocInherited({Key key, this.bloc, Widget child}) : super(key: key, child: child);
 
   @override
   bool updateShouldNotify(_BlocInherited<T> old) {
